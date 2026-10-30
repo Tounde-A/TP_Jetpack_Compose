@@ -6,8 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -84,6 +86,22 @@ fun ProductHeader(title: String, brand: String, category: String, modifier: Modi
 }
 
 @Composable
+fun ProductPriceCard(price: Double, discountPercentage: Double, modifier: Modifier = Modifier) {
+    Card(modifier = modifier) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "$price €",
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = "Remise : $discountPercentage %",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
+
+@Composable
 fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         ProductHeader(
@@ -92,7 +110,12 @@ fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifi
             category = product.category,
         )
 
-        Text(text = "${product.price} €")
+        ProductPriceCard(
+            price = product.price,
+            discountPercentage = product.discountPercentage,
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
+
         Text(text = product.description)
 
         Button(onClick = onAddToCartClick) {

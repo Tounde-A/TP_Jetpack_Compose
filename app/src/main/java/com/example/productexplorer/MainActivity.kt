@@ -152,6 +152,21 @@ fun ProductAvailabilityCard(stock: Int, shippingInformation: String, modifier: M
 }
 
 @Composable
+fun ProductDescription(description: String, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Text(
+            text = "Description",
+            style = MaterialTheme.typography.titleMedium
+        )
+        Text(
+            text = description,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
 fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         ProductImage(
@@ -182,7 +197,10 @@ fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifi
             modifier = Modifier.padding(top = 16.dp)
         )
 
-        Text(text = product.description)
+        ProductDescription(
+            description = product.description,
+            modifier = Modifier.padding(top = 16.dp)
+        )
 
         Button(onClick = onAddToCartClick) {
             Text(text = "Ajouter au panier")

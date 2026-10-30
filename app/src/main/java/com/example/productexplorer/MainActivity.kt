@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -67,9 +68,18 @@ fun sampleProduct(): ProductUi {
 @Composable
 fun ProductHeader(title: String, brand: String, category: String, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        Text(text = title)
-        Text(text = brand)
-        Text(text = category)
+        Text(
+            text = title,
+            style = MaterialTheme.typography.headlineSmall
+        )
+        Text(
+            text = brand,
+            style = MaterialTheme.typography.titleMedium
+        )
+        Text(
+            text = category,
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }
 

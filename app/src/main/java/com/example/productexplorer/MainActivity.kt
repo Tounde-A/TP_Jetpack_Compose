@@ -132,6 +132,26 @@ fun ProductRating(rating: Double, modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun ProductAvailabilityCard(stock: Int, shippingInformation: String, modifier: Modifier = Modifier) {
+    Card(modifier = modifier) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Disponibilité",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "Stock : $stock unités",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = shippingInformation,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
+
+@Composable
 fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         ProductImage(
@@ -148,6 +168,12 @@ fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifi
         ProductPriceCard(
             price = product.price,
             discountPercentage = product.discountPercentage,
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
+
+        ProductAvailabilityCard(
+            stock = product.stock,
+            shippingInformation = product.shippingInformation,
             modifier = Modifier.fillMaxWidth().padding(16.dp)
         )
 

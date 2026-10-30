@@ -181,6 +181,13 @@ fun ProductWarrantyField(warrantyInformation: String, modifier: Modifier = Modif
 }
 
 @Composable
+fun AddToCartButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Button(onClick = onClick, modifier = modifier) {
+        Text(text = "Ajouter au panier")
+    }
+}
+
+@Composable
 fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         ProductImage(
@@ -221,9 +228,10 @@ fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifi
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
         )
 
-        Button(onClick = onAddToCartClick) {
-            Text(text = "Ajouter au panier")
-        }
+        AddToCartButton(
+            onClick = onAddToCartClick,
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+        )
     }
 }
 

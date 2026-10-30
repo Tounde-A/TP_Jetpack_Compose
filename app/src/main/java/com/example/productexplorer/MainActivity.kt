@@ -65,11 +65,23 @@ fun sampleProduct(): ProductUi {
 }
 
 @Composable
+fun ProductHeader(title: String, brand: String, category: String, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Text(text = title)
+        Text(text = brand)
+        Text(text = category)
+    }
+}
+
+@Composable
 fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
-        Text(text = product.title)
-        Text(text = product.brand)
-        Text(text = product.category)
+        ProductHeader(
+            title = product.title,
+            brand = product.brand,
+            category = product.category,
+        )
+
         Text(text = "${product.price} €")
         Text(text = product.description)
 
@@ -85,7 +97,7 @@ fun ProductDetailScreenPreview() {
     ProductExplorerTheme {
         ProductDetailScreen(
             product = sampleProduct(),
-            onAddToCartClick = { }
+            onAddToCartClick = {}
         )
     }
 }

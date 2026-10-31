@@ -354,6 +354,35 @@ fun ProductQuickInfoRow(price: Double, rating: Double, stock: Int, modifier: Mod
     }
 }
 
+@Composable
+fun CategoryChip(label: String, modifier: Modifier = Modifier) {
+    Surface(modifier = modifier, shape = MaterialTheme.shapes.medium, tonalElevation = 2.dp) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun CategoriesSection(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Text(
+            text = "Catégories",
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Row() {
+            CategoryChip(label = "Smartphone")
+            Spacer(modifier = Modifier.weight(1f))
+            CategoryChip(label = "Audio")
+            Spacer(modifier = Modifier.weight(1f))
+            CategoryChip(label = "Maison")
+        }
+    }
+}
+
 // Principal ProductHomeScreen component below
 @Composable
 fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -366,6 +395,8 @@ fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> 
             product = featuredProduct,
             onClick = onFeaturedProductClick
         )
+        Spacer(modifier = Modifier.height(24.dp))
+        CategoriesSection()
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

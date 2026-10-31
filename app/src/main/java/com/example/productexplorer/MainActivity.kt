@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -251,20 +253,6 @@ fun ProductDetailScreen(product: ProductUi, onAddToCartClick: () -> Unit, modifi
     }
 }
 
-@Composable
-fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> Unit, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
-        Text(
-            text = "Product Explorer",
-            style = MaterialTheme.typography.headlineMedium
-        )
-        Text(
-            text = "Découvrez les produits du moment",
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun ProductDetailScreenPreview() {
@@ -283,6 +271,43 @@ fun ProductDetailScreenOutOfStockPreview() {
         ProductDetailScreen(
             product = sampleProductOutOfStock(),
             onAddToCartClick = {}
+        )
+    }
+}
+
+// All components of ProductHome below
+@Composable
+fun HomeHeader(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Text(
+            text = "Product Explorer",
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Text(
+            text = "Découvrez les produits du moment",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+
+// Principal ProductHomeScreen component below
+@Composable
+fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
+        HomeHeader()
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+// All ProductHomePreview below
+@Preview(showBackground = true)
+@Composable
+fun ProductHomeScreenPreview() {
+    ProductExplorerTheme {
+        ProductHomeScreen(
+            featuredProduct = sampleProduct(),
+            onFeaturedProductClick = {}
         )
     }
 }

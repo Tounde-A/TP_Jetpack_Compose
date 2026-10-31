@@ -281,7 +281,6 @@ fun ProductDetailScreenOutOfStockPreview() {
 }
 
 // ProductHome
-// All components of ProductHome below
 @Composable
 fun HomeHeader(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
@@ -416,10 +415,9 @@ fun DailyOfferBox(modifier: Modifier = Modifier) {
     }
 }
 
-// Principal ProductHomeScreen component below
 @Composable
 fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> Unit, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
+    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         HomeHeader()
         Spacer(modifier = Modifier.height(24.dp))
         SearchPreviewBar()
@@ -435,7 +433,6 @@ fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> 
     }
 }
 
-// All ProductHomePreview below
 @Preview(showBackground = true)
 @Composable
 fun ProductHomeScreenPreview() {

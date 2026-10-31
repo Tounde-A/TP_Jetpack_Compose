@@ -28,6 +28,7 @@ import com.example.productexplorer.ui.theme.ProductExplorerTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Data
 data class ProductUi(
     val title: String,
     val brand: String,
@@ -93,6 +95,7 @@ fun sampleProductOutOfStock(): ProductUi {
     )
 }
 
+// ProductDetail
 @Composable
 fun ProductHeader(title: String, brand: String, category: String, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
@@ -275,6 +278,7 @@ fun ProductDetailScreenOutOfStockPreview() {
     }
 }
 
+// ProductHome
 // All components of ProductHome below
 @Composable
 fun HomeHeader(modifier: Modifier = Modifier) {
@@ -290,12 +294,24 @@ fun HomeHeader(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun SearchPreviewBar(modifier: Modifier = Modifier) {
+    Surface(modifier = modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, tonalElevation = 2.dp) {
+        Text(
+            text = "Rechercher un produit...",
+            modifier = Modifier.padding(16.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
 
 // Principal ProductHomeScreen component below
 @Composable
 fun ProductHomeScreen(featuredProduct: ProductUi, onFeaturedProductClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
         HomeHeader()
+        Spacer(modifier = Modifier.height(24.dp))
+        SearchPreviewBar()
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

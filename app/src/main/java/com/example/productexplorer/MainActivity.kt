@@ -120,6 +120,14 @@ data class ProductUi(
     val shippingInformation: String
 )
 
+data class ProductCatalogUiState(
+    val product: List<ProductUi> = emptyList(),
+    val categories: List<String> = emptyList(),
+    val searchQuery: String = "",
+    val showOnlyInStock: Boolean = false,
+    val favoriteProductIds: List<Int> = emptyList()
+)
+
 fun sampleProduct(): ProductUi {
     return ProductUi(
         id = 1,

@@ -525,6 +525,9 @@ fun ProductCatalogScreen(
     var showOnlyInStock by rememberSaveable {
         mutableStateOf(false)
     }
+    var favoriteProductIds by rememberSaveable {
+        mutableStateOf(listOf<Int>())
+    }
     val filteredProducts = remember(products, searchQuery, showOnlyInStock) {
         products.filter { product ->
             val matchesSearch =
@@ -536,6 +539,13 @@ fun ProductCatalogScreen(
                 !showOnlyInStock || product.stock > 0
 
             matchesSearch && matchesStock
+        }
+    }
+    fun toogleFavorite(productId: Int) {
+        favoriteProductIds = if (favoriteProductIds.contains(productId)) {
+            favoriteProductIds - productId
+        } else {
+            favoriteProductIds + productId
         }
     }
     LazyColumn (

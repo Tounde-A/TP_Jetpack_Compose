@@ -27,7 +27,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,15 +36,10 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.RememberObserver
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -57,8 +51,6 @@ class MainActivity : ComponentActivity() {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ProductCatalogContainer(
-                        products = sampleProducts(),
-                        categories = sampleCategories(),
                         onProductClick = {
                             // Plus tard : ouvrir le détail du produit
                         },
@@ -733,28 +725,22 @@ fun CategoryRow(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProductCatalogContainerPreview() {
-    ProductExplorerTheme {
-        ProductCatalogContainer(
-            products = sampleProducts(),
-            categories = sampleCategories(),
-            onProductClick = {}
-        )
-    }
-}
-
 @Preview(
     showBackground = true,
     name = "Catalogue - Dark Theme"
 )
 @Composable
-fun ProductCatalogContainerDarkPreview() {
+fun ProductCatalogScreenDarkPreview() {
     ProductExplorerTheme(darkTheme = true) {
-        ProductCatalogContainer(
+        ProductCatalogScreen(
             products = sampleProducts(),
             categories = sampleCategories(),
+            searchQuery = "audio",
+            onSearchQueryChange = {},
+            showOnlyInStock = true,
+            onToggleStockFilter = {},
+            favoriteProductIds = listOf(2),
+            onFavoriteClick = {},
             onProductClick = {}
         )
     }
@@ -765,11 +751,17 @@ fun ProductCatalogContainerDarkPreview() {
     name = "Catalogue - Light Theme"
 )
 @Composable
-fun ProductCatalogContainerLightPreview() {
+fun ProductCatalogScreenLightPreview() {
     ProductExplorerTheme(darkTheme = false) {
-        ProductCatalogContainer(
+        ProductCatalogScreen(
             products = sampleProducts(),
             categories = sampleCategories(),
+            searchQuery = "",
+            onSearchQueryChange = {},
+            showOnlyInStock = false,
+            onToggleStockFilter = {},
+            favoriteProductIds = listOf(1),
+            onFavoriteClick = {},
             onProductClick = {}
         )
     }

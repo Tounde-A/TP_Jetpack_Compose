@@ -522,11 +522,20 @@ fun ProductCatalogScreen(
     var searchQuery by rememberSaveable {
         mutableStateOf("")
     }
-    val filteredProducts = remember(products, searchQuery) {
+    var showOnlyInStock by rememberSaveable {
+        mutableStateOf(false)
+    }
+    val filteredProducts = remember(products, searchQuery, showOnlyInStock) {
         products.filter { product ->
-            product.title.contains(searchQuery, ignoreCase = true) ||
-                    product.brand.contains(searchQuery, ignoreCase = true) ||
-                    product.category.contains(searchQuery, ignoreCase = true)
+            val matchesSearch =
+                product.title.contains(searchQuery, ignoreCase = true) ||
+                        product.brand.contains(searchQuery, ignoreCase = true) ||
+                        product.category.contains(searchQuery, ignoreCase = true)
+
+            val matchesStock =
+                !showOnlyInStock || product.stock > 0
+
+            matchesSearch && matchesStock
         }
     }
     LazyColumn (
@@ -556,6 +565,21 @@ fun ProductCatalogScreen(
             )
         }
         item {
+            Button(
+                onClick = {
+                    showOnlyInStock = !showOnlyInStock
+                }
+            ) {
+                Text(
+                    text = if (showOnlyInStock) {
+                        "Afficher tous les produits"
+                    } else {
+                        "Afficher uniquement les produits en stock"
+                    }
+                )
+            }
+        }
+        item {
             Text(
                 text = "Explorez une sélection de produits disponibles localement.",
                 style = MaterialTheme.typography.bodyMedium
@@ -563,6 +587,12 @@ fun ProductCatalogScreen(
         }
         item {
             CategoryRow(categories = sampleCategories())
+        }
+        item {
+            Text(
+                text = "${filteredProducts.size} produit(s) affiché(s)",
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
         items(
             items = filteredProducts,

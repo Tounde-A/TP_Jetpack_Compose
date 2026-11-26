@@ -54,8 +54,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ProductCatalogScreen(
+                    ProductCatalogContainer(
                         products = sampleProducts(),
+                        categories = sampleCategories(),
                         onProductClick = {
                             // Plus tard : ouvrir le détail du produit
                         },
@@ -549,6 +550,25 @@ fun ProductCatalogContainer(
             favoriteProductIds + productId
         }
     }
+
+    ProductCatalogScreen(
+        products = filteredProducts,
+        categories = categories,
+        searchQuery = searchQuery,
+        onSearchQueryChange = { newValue ->
+            searchQuery = newValue
+        },
+        showOnlyInStock = showOnlyInStock,
+        onToggleStockFilter = {
+            showOnlyInStock = !showOnlyInStock
+        },
+        favoriteProductIds = favoriteProductIds,
+        onFavoriteClick = { productId ->
+            toogleFavorite(productId)
+        },
+        onProductClick = onProductClick,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -581,9 +601,7 @@ fun ProductCatalogScreen(
         item {
             OutlinedTextField(
                 value = searchQuery,
-                onValueChange = { newValue ->
-                    searchQuery = newValue
-                },
+                onValueChange = onSearchQueryChange,
                 label = {
                     Text(text = "Rechercher un produit")
                 },
@@ -592,9 +610,7 @@ fun ProductCatalogScreen(
         }
         item {
             Button(
-                onClick = {
-                    showOnlyInStock = !showOnlyInStock
-                }
+                onClick = onToggleStockFilter
             ) {
                 Text(
                     text = if (showOnlyInStock) {
@@ -612,23 +628,23 @@ fun ProductCatalogScreen(
             )
         }
         item {
-            CategoryRow(categories = sampleCategories())
+            CategoryRow(categories = categories)
         }
         item {
             Text(
-                text = "${filteredProducts.size} produit(s) affiché(s)",
+                text = "${products.size} produit(s) affiché(s)",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
         items(
-            items = filteredProducts,
+            items = products,
             key = { product -> product.id }
         ) { product ->
             ProductListItem(
                 product = product,
                 isFavorite = favoriteProductIds.contains(product.id),
                 onFavoriteClick = {
-                    toogleFavorite(product.id)
+                    onFavoriteClick(product.id)
                 },
                 onClick = {
                     onProductClick(product)
